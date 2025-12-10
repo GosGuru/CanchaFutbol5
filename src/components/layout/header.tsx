@@ -4,7 +4,7 @@ import { useState, useEffect } from "react"
 import Link from "next/link"
 import { Button } from "@/components/ui/button"
 import { motion, AnimatePresence } from "motion/react"
-import { Menu, X, Calendar, Circle } from "lucide-react"
+import { Menu, X, Calendar, Circle, LogIn } from "lucide-react"
 
 const navItems = [
   { href: "#inicio", label: "Inicio" },
@@ -91,6 +91,13 @@ export function Header() {
 
             {/* Desktop CTA */}
             <div className="hidden md:flex items-center gap-3">
+              <Link 
+                href="/login" 
+                className="p-2 rounded-lg text-muted-foreground/50 hover:text-muted-foreground hover:bg-muted/50 transition-colors"
+                title="Panel de administración"
+              >
+                <LogIn className="h-4 w-4" />
+              </Link>
               <Button asChild>
                 <Link href="/reservar">
                   <Calendar className="mr-2 h-4 w-4" />
@@ -161,12 +168,18 @@ export function Header() {
                   initial={{ opacity: 0, y: 20 }}
                   animate={{ opacity: 1, y: 0 }}
                   transition={{ delay: 0.4 }}
-                  className="pt-4"
+                  className="pt-4 space-y-3"
                 >
                   <Button asChild className="w-full" size="lg">
                     <Link href="/reservar" onClick={handleNavClick}>
                       <Calendar className="mr-2 h-5 w-5" />
                       Reservar ahora
+                    </Link>
+                  </Button>
+                  <Button asChild variant="ghost" className="w-full" size="lg">
+                    <Link href="/login" onClick={handleNavClick}>
+                      <LogIn className="mr-2 h-5 w-5" />
+                      Administración
                     </Link>
                   </Button>
                 </motion.div>
