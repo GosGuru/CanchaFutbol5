@@ -107,10 +107,13 @@ export default function LoginPage() {
               )}
             </div>
           </CardContent>
-          <CardFooter>
+          <CardFooter className="flex flex-col gap-4">
             <Button className="w-full" type="submit" disabled={isLoading}>
               {isLoading ? "Ingresando..." : "Ingresar"}
             </Button>
+            <p className="text-xs text-muted-foreground/60 text-center">
+              Credenciales de prueba: <span className="font-mono">admin</span> / <span className="font-mono">admin2024</span>
+            </p>
           </CardFooter>
         </form>
       </Card>

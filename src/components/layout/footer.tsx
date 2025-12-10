@@ -90,9 +90,18 @@ export function Footer() {
         {/* Bottom Bar */}
         <div className="mt-12 pt-8 border-t border-border/50">
           <div className="flex flex-col md:flex-row justify-between items-center gap-4">
-            <p className="text-sm text-muted-foreground">
-              © {currentYear} Cancha de Fútbol 5. Todos los derechos reservados.
-            </p>
+            <div className="flex items-center gap-2">
+              <p className="text-sm text-muted-foreground">
+                © {currentYear} Cancha de Fútbol 5. Todos los derechos reservados.
+              </p>
+              <span className="text-muted-foreground/30">•</span>
+              <Link 
+                href="/login" 
+                className="text-xs text-muted-foreground/50 hover:text-muted-foreground transition-colors"
+              >
+                Admin
+              </Link>
+            </div>
             <div className="flex items-center gap-4">
               <a 
                 href="https://instagram.com/canchafutbol5"
