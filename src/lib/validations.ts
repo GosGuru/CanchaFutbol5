@@ -167,7 +167,7 @@ export function validarReserva(
   // Validar disponibilidad de horario
   if (data.canchaId && data.fecha && data.horaInicio && data.horaFin) {
     const disponibilidad = validarHorarioDisponible(
-      data.canchaId,
+      data.canchaId as 1 | 2,
       data.fecha,
       data.horaInicio,
       data.horaFin,

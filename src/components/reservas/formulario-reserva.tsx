@@ -39,15 +39,9 @@ import { Reserva } from "@/types"
 
 const reservaSchema = z.object({
   canchaId: z.string(),
-  fecha: z.date({
-    required_error: "La fecha es requerida",
-  }),
-  horaInicio: z.string({
-    required_error: "La hora de inicio es requerida",
-  }),
-  horaFin: z.string({
-    required_error: "La hora de fin es requerida",
-  }),
+  fecha: z.date({ error: "La fecha es requerida" }),
+  horaInicio: z.string({ error: "La hora de inicio es requerida" }),
+  horaFin: z.string({ error: "La hora de fin es requerida" }),
   nombreCliente: z.string().min(2, "El nombre es requerido"),
   telefonoCliente: z.string().min(8, "El teléfono es requerido"),
   emailCliente: z.string().email("Email inválido").optional().or(z.literal("")),

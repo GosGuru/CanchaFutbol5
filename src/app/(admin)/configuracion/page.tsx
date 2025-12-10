@@ -54,12 +54,12 @@ const configSchema = z.object({
   // Horarios
   horarioApertura: z.string(),
   horarioCierre: z.string(),
-  duracionSlot: z.coerce.number().min(30).max(120),
+  duracionSlot: z.number().min(30).max(120),
   
   // Precios
-  precioPorHora: z.coerce.number().min(0),
-  precioNocturno: z.coerce.number().min(0),
-  precioFinDeSemana: z.coerce.number().min(0),
+  precioPorHora: z.number().min(0),
+  precioNocturno: z.number().min(0),
+  precioFinDeSemana: z.number().min(0),
   
   // Info del complejo
   nombreComplejo: z.string().min(1, "El nombre es requerido"),
@@ -381,7 +381,14 @@ export default function ConfiguracionPage() {
                     <FormItem>
                       <FormLabel>Duración turno (minutos)</FormLabel>
                       <FormControl>
-                        <Input type="number" min={30} max={120} step={15} {...field} />
+                        <Input 
+                          type="number" 
+                          min={30} 
+                          max={120} 
+                          step={15} 
+                          {...field}
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -411,7 +418,12 @@ export default function ConfiguracionPage() {
                     <FormItem>
                       <FormLabel>Turno Normal ($ UYU)</FormLabel>
                       <FormControl>
-                        <Input type="number" min={0} {...field} />
+                        <Input 
+                          type="number" 
+                          min={0} 
+                          {...field}
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormDescription>
                         Precio base por hora
@@ -428,7 +440,12 @@ export default function ConfiguracionPage() {
                     <FormItem>
                       <FormLabel>Turno Nocturno ($ UYU)</FormLabel>
                       <FormControl>
-                        <Input type="number" min={0} {...field} />
+                        <Input 
+                          type="number" 
+                          min={0} 
+                          {...field}
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormDescription>
                         Después de las 20:00
@@ -445,7 +462,12 @@ export default function ConfiguracionPage() {
                     <FormItem>
                       <FormLabel>Fin de Semana ($ UYU)</FormLabel>
                       <FormControl>
-                        <Input type="number" min={0} {...field} />
+                        <Input 
+                          type="number" 
+                          min={0} 
+                          {...field}
+                          onChange={(e) => field.onChange(Number(e.target.value))}
+                        />
                       </FormControl>
                       <FormDescription>
                         Sábados y Domingos
