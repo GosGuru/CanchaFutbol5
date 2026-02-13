@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useMemo } from "react"
 import { Button } from "@/components/ui/button"
 import { motion } from "motion/react"
 import Link from "next/link"
@@ -18,24 +18,15 @@ interface InfoComplejo {
 }
 
 export function HeroSection() {
-  const [info, setInfo] = useState<InfoComplejo>({
-    nombre: "Cancha de Fútbol 5",
-    direccion: "Durazno, Uruguay",
-    horarioApertura: "08:00",
-    horarioCierre: "23:00",
-    precioBase: 1500
-  })
-
-  useEffect(() => {
-    // Cargar datos reales
+  const info = useMemo<InfoComplejo>(() => {
     const data = getInfoComplejo()
-    setInfo({
+    return {
       nombre: data.nombre,
       direccion: data.direccion,
       horarioApertura: data.horarioApertura,
       horarioCierre: data.horarioCierre,
-      precioBase: data.precioBase
-    })
+      precioBase: data.precioBase,
+    }
   }, [])
 
   return (
@@ -94,7 +85,7 @@ export function HeroSection() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.3, duration: 0.8 }}
           >
-            Reservá tu cancha en{" "}
+            Reserva tu cancha en{" "}
             <span className="text-transparent bg-clip-text bg-linear-to-r from-primary to-emerald-400">
               {info.nombre}
             </span>
@@ -108,7 +99,7 @@ export function HeroSection() {
             transition={{ delay: 0.5, duration: 0.8 }}
           >
             Canchas de césped sintético de primera calidad. 
-            Reservá online en segundos y disfrutá del mejor fútbol con tus amigos.
+            Reserva online en segundos y disfruta del mejor fútbol con tus amigos.
           </motion.p>
 
           {/* CTA Buttons */}

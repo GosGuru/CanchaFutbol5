@@ -57,7 +57,7 @@ export default function LoginPage() {
       } else {
         toast.error(result.error || "Credenciales inválidas")
       }
-    } catch (error) {
+    } catch {
       toast.error("Error al iniciar sesión")
     } finally {
       setIsLoading(false)

@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useMemo } from "react"
 import { motion } from "motion/react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Clock, DollarSign, Calendar, Sun, Moon, CalendarDays, Goal } from "lucide-react"
@@ -16,19 +16,10 @@ interface PrecioItem {
 }
 
 export function HorariosPrecios() {
-  const [horarioApertura, setHorarioApertura] = useState("08:00")
-  const [horarioCierre, setHorarioCierre] = useState("23:00")
-  const [precios, setPrecios] = useState<PrecioItem[]>([])
-  const [cantidadCanchas, setCantidadCanchas] = useState(2)
-
-  useEffect(() => {
+  const { horarioApertura, horarioCierre, precios, cantidadCanchas } = useMemo(() => {
     const info = getInfoComplejo()
     const canchas = getCanchasPublicas()
-    
-    setHorarioApertura(info.horarioApertura)
-    setHorarioCierre(info.horarioCierre)
-    setCantidadCanchas(canchas.length)
-    
+
     // Construir lista de precios dinámicamente
     const preciosLista: PrecioItem[] = []
     
@@ -74,8 +65,13 @@ export function HorariosPrecios() {
         })
       }
     }
-    
-    setPrecios(preciosLista)
+
+    return {
+      horarioApertura: info.horarioApertura,
+      horarioCierre: info.horarioCierre,
+      precios: preciosLista,
+      cantidadCanchas: canchas.length,
+    }
   }, [])
 
   const horarios = [
@@ -102,7 +98,7 @@ export function HorariosPrecios() {
             </span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Reservá tu cancha al mejor precio. Canchas de césped sintético de primera calidad
+            Reserva tu cancha al mejor precio. Canchas de césped sintético de primera calidad
             disponibles todos los días de la semana.
           </p>
         </motion.div>
@@ -146,7 +142,7 @@ export function HorariosPrecios() {
                 <div className="mt-6 p-4 bg-primary/5 rounded-lg border border-primary/10">
                   <p className="text-sm text-muted-foreground">
                     <span className="text-primary font-medium">💡 Tip:</span> Los horarios más populares 
-                    son de 18:00 a 21:00. ¡Reservá con anticipación!
+                    son de 18:00 a 21:00. ¡Reserva con antelación!
                   </p>
                 </div>
               </CardContent>

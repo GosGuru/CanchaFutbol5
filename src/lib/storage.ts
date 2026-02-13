@@ -13,22 +13,30 @@ const STORAGE_KEYS = {
 const DEFAULT_CONFIG: Configuracion = {
   horarioApertura: '08:00',
   horarioCierre: '23:00',
-  precioPorHora: 1500,
+  precioPorHora: 40,
   precios: {
-    turnoNormal: 1500,
-    turnoNocturno: 1500,
-    turnoFinDeSemana: 1500
+    turnoNormal: 40,
+    turnoNocturno: 48,
+    turnoFinDeSemana: 50
   },
   duracionSlot: 60,
   diasBloqueados: [],
   infoComplejo: {
-    nombre: 'Cancha de Fútbol 5',
-    direccion: 'Uruguay',
-    telefono: '+598 99 999 999',
-    whatsapp: '598999999999',
+    nombre: 'Invasor Fútbol 5',
+    direccion: 'Madrid, España',
+    telefono: '+34 600 111 222',
+    whatsapp: '34600111222',
     instagram: 'canchafutbol5',
-    googleMapsUrl: 'https://maps.google.com',
-    googleMapsEmbed: ''
+    googleMapsUrl: 'https://maps.google.com/?q=Invasor+Futbol+5+Madrid+Espana',
+    googleMapsEmbed: 'https://www.google.com/maps?q=Madrid,+Espa%C3%B1a&output=embed'
+  },
+  regional: {
+    pais: 'España',
+    locale: 'es-ES',
+    moneda: 'EUR',
+    simboloMoneda: '€',
+    zonaHoraria: 'Europe/Madrid',
+    metodosPago: ['tarjeta', 'bizum', 'transferencia', 'efectivo']
   }
 }
 
@@ -150,7 +158,25 @@ export function getConfiguracion(): Configuracion {
   }
   
   try {
-    return JSON.parse(data)
+    const parsed = JSON.parse(data) as Partial<Configuracion>
+    return {
+      ...DEFAULT_CONFIG,
+      ...parsed,
+      precios: {
+        ...DEFAULT_CONFIG.precios,
+        ...parsed.precios,
+      },
+      infoComplejo: {
+        ...DEFAULT_CONFIG.infoComplejo,
+        ...parsed.infoComplejo,
+      },
+      regional: parsed.regional
+        ? {
+            ...DEFAULT_CONFIG.regional!,
+            ...parsed.regional,
+          }
+        : DEFAULT_CONFIG.regional,
+    }
   } catch {
     return DEFAULT_CONFIG
   }
@@ -159,7 +185,24 @@ export function getConfiguracion(): Configuracion {
 // Actualizar configuración
 export function updateConfiguracion(config: Partial<Configuracion>): Configuracion {
   const currentConfig = getConfiguracion()
-  const newConfig = { ...currentConfig, ...config }
+  const newConfig: Configuracion = {
+    ...currentConfig,
+    ...config,
+    precios: {
+      ...currentConfig.precios,
+      ...config.precios,
+    },
+    infoComplejo: {
+      ...currentConfig.infoComplejo,
+      ...config.infoComplejo,
+    },
+    regional: config.regional
+      ? {
+          ...(currentConfig.regional ?? DEFAULT_CONFIG.regional!),
+          ...config.regional,
+        }
+      : currentConfig.regional,
+  }
   saveConfiguracion(newConfig)
   return newConfig
 }

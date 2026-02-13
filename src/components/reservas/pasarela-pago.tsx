@@ -4,6 +4,7 @@ import { useState } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { 
   CreditCard, 
+  Phone,
   Building2, 
   Banknote,
   Check,
@@ -16,9 +17,9 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Label } from "@/components/ui/label"
 import { Card, CardContent } from "@/components/ui/card"
-import { cn } from "@/lib/utils"
+import { cn, formatCurrency } from "@/lib/utils"
 
-type MetodoPago = "mercadopago" | "transferencia" | "efectivo"
+type MetodoPago = "tarjeta" | "bizum" | "transferencia" | "efectivo"
 
 interface PasarelaPagoProps {
   monto: number
@@ -36,17 +37,25 @@ export interface ResultadoPago {
 
 const metodosPago = [
   {
-    id: "mercadopago" as MetodoPago,
-    nombre: "MercadoPago",
-    descripcion: "Tarjeta crédito, débito o saldo MP",
+    id: "tarjeta" as MetodoPago,
+    nombre: "Tarjeta",
+    descripcion: "Crédito o débito",
     icon: CreditCard,
-    color: "from-[#009EE3] to-[#00C3F2]",
+    color: "from-[#2563eb] to-[#3b82f6]",
+    popular: true,
+  },
+  {
+    id: "bizum" as MetodoPago,
+    nombre: "Bizum",
+    descripcion: "Pago instantáneo con móvil",
+    icon: Phone,
+    color: "from-[#8B5CF6] to-[#7C3AED]",
     popular: true,
   },
   {
     id: "transferencia" as MetodoPago,
     nombre: "Transferencia bancaria",
-    descripcion: "BROU, Itaú, Santander, Scotiabank",
+    descripcion: "Santander, BBVA, CaixaBank y más",
     icon: Building2,
     color: "from-emerald-500 to-emerald-600",
     popular: false,
@@ -148,7 +157,7 @@ export function PasarelaPago({ monto, onPagoCompletado, onCancelar }: PasarelaPa
             className="space-y-4"
           >
             <div className="text-center mb-6">
-              <p className="text-muted-foreground">¿Cómo preferís pagar tu reserva?</p>
+              <p className="text-muted-foreground">¿Cómo prefieres pagar tu reserva?</p>
             </div>
 
             <div className="grid gap-3">
@@ -216,7 +225,7 @@ export function PasarelaPago({ monto, onPagoCompletado, onCancelar }: PasarelaPa
         )}
 
         {/* Formulario de pago */}
-        {paso === "formulario" && metodoSeleccionado === "mercadopago" && (
+        {paso === "formulario" && metodoSeleccionado === "tarjeta" && (
           <motion.div
             key="formulario-mp"
             initial={{ opacity: 0, y: 20 }}
@@ -332,16 +341,71 @@ export function PasarelaPago({ monto, onPagoCompletado, onCancelar }: PasarelaPa
               <Button 
                 onClick={() => handleProcesarPago()}
                 disabled={!validarTarjeta()}
-                className="flex-1 bg-[#009EE3] hover:bg-[#0087C7]"
+                className="flex-1 bg-[#2563eb] hover:bg-[#1d4ed8]"
               >
-                Pagar ${monto.toLocaleString("es-UY")}
+                Pagar {formatCurrency(monto)}
               </Button>
             </div>
 
             {/* Seguridad */}
             <div className="flex items-center justify-center gap-2 text-xs text-muted-foreground">
               <ShieldCheck className="h-4 w-4 text-primary" />
-              <span>Procesado de forma segura por MercadoPago</span>
+              <span>Procesado de forma segura por la pasarela de pago</span>
+            </div>
+          </motion.div>
+        )}
+
+        {paso === "formulario" && metodoSeleccionado === "bizum" && (
+          <motion.div
+            key="formulario-bizum"
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="space-y-4"
+          >
+            <Card className="bg-violet-500/10 border-violet-500/20">
+              <CardContent className="pt-6 space-y-4">
+                <div className="flex items-start gap-3">
+                  <Phone className="h-5 w-5 text-violet-500 mt-0.5" />
+                  <div>
+                    <p className="font-medium text-violet-500">Pago con Bizum</p>
+                    <p className="text-sm text-muted-foreground">
+                      Realiza el pago al número indicado y confirma para validar tu reserva.
+                    </p>
+                  </div>
+                </div>
+
+                <div className="space-y-3 bg-background/50 rounded-lg p-4">
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Bizum:</span>
+                    <span className="font-medium">+34 600 111 222</span>
+                  </div>
+                  <div className="flex justify-between">
+                    <span className="text-muted-foreground">Concepto:</span>
+                    <span className="font-mono font-medium">RESERVA INVASOR</span>
+                  </div>
+                  <div className="flex justify-between border-t border-border pt-3 mt-3">
+                    <span className="text-muted-foreground">Monto:</span>
+                    <span className="font-bold text-lg text-primary">{formatCurrency(monto)}</span>
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            <div className="flex gap-3">
+              <Button 
+                variant="outline" 
+                onClick={() => setPaso("seleccion")}
+                className="flex-1"
+              >
+                Cambiar método
+              </Button>
+              <Button 
+                onClick={() => handleProcesarPago()}
+                className="flex-1"
+              >
+                Ya hice el Bizum
+              </Button>
             </div>
           </motion.div>
         )}
@@ -362,7 +426,7 @@ export function PasarelaPago({ monto, onPagoCompletado, onCancelar }: PasarelaPa
                   <div>
                     <p className="font-medium text-emerald-500">Datos para transferencia</p>
                     <p className="text-sm text-muted-foreground">
-                      Realizá la transferencia y enviá el comprobante por WhatsApp
+                      Realiza la transferencia y envía el comprobante por WhatsApp
                     </p>
                   </div>
                 </div>
@@ -370,19 +434,19 @@ export function PasarelaPago({ monto, onPagoCompletado, onCancelar }: PasarelaPa
                 <div className="space-y-3 bg-background/50 rounded-lg p-4">
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Banco:</span>
-                    <span className="font-medium">BROU</span>
+                    <span className="font-medium">Santander</span>
                   </div>
                   <div className="flex justify-between">
-                    <span className="text-muted-foreground">Cuenta:</span>
-                    <span className="font-mono font-medium">001234567-00001</span>
+                    <span className="text-muted-foreground">IBAN:</span>
+                    <span className="font-mono font-medium">ES91 2100 0418 4502 0005 1332</span>
                   </div>
                   <div className="flex justify-between">
                     <span className="text-muted-foreground">Titular:</span>
-                    <span className="font-medium">Cancha de Fútbol 5</span>
+                    <span className="font-medium">Invasor Fútbol 5</span>
                   </div>
                   <div className="flex justify-between border-t border-border pt-3 mt-3">
                     <span className="text-muted-foreground">Monto:</span>
-                    <span className="font-bold text-lg text-primary">${monto.toLocaleString("es-UY")}</span>
+                    <span className="font-bold text-lg text-primary">{formatCurrency(monto)}</span>
                   </div>
                 </div>
               </CardContent>

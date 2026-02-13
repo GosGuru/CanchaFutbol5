@@ -1,6 +1,6 @@
 "use client"
 
-import { useState, useEffect, useMemo } from "react"
+import { useState, useEffect } from "react"
 import { motion, AnimatePresence } from "motion/react"
 import { format } from "date-fns"
 import { 
@@ -14,7 +14,7 @@ import {
   Trees,
   Timer
 } from "lucide-react"
-import { cn } from "@/lib/utils"
+import { cn, formatCurrency } from "@/lib/utils"
 import type { Configuracion, SlotDisponible } from "@/types"
 
 interface GridHorariosProps {
@@ -333,7 +333,7 @@ export function GridHorarios({ fecha, config, onSelect, horarioSeleccionado }: G
                         ? "text-muted-foreground" 
                         : "text-muted-foreground/40"
                   )}>
-                    ${slot.precio.toLocaleString("es-UY")}
+                    {formatCurrency(slot.precio)}
                   </span>
 
                   {/* Indicador nocturno */}
@@ -391,7 +391,7 @@ export function GridHorarios({ fecha, config, onSelect, horarioSeleccionado }: G
               <div className="text-right">
                 <p className="text-sm text-muted-foreground">Total</p>
                 <p className="text-2xl font-bold text-primary">
-                  ${getPrecioSlot(horarioSeleccionado).toLocaleString("es-UY")}
+                  {formatCurrency(getPrecioSlot(horarioSeleccionado))}
                 </p>
               </div>
             </div>

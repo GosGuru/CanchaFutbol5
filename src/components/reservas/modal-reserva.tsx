@@ -54,7 +54,7 @@ const reservaSchema = z.object({
   nombreCliente: z.string().min(2, "El nombre es requerido"),
   telefonoCliente: z.string().min(8, "El teléfono es requerido"),
   emailCliente: z.string().email("Email inválido").optional().or(z.literal("")),
-  cedulaCliente: z.string().optional(),
+  documentoCliente: z.string().optional(),
   precio: z.string().min(1, "El precio es requerido"),
   estado: z.string(),
   notas: z.string().optional(),
@@ -103,7 +103,7 @@ export function ModalReserva({
       nombreCliente: "",
       telefonoCliente: "",
       emailCliente: "",
-      cedulaCliente: "",
+      documentoCliente: "",
       precio: config.precioPorHora.toString(),
       estado: "pendiente",
       notas: "",
@@ -122,7 +122,7 @@ export function ModalReserva({
           nombreCliente: reserva.cliente.nombre,
           telefonoCliente: reserva.cliente.telefono,
           emailCliente: reserva.cliente.email || "",
-          cedulaCliente: reserva.cliente.cedula || "",
+          documentoCliente: reserva.cliente.documento || reserva.cliente.cedula || "",
           precio: reserva.precio.toString(),
           estado: reserva.estado,
           notas: reserva.notas || "",
@@ -136,7 +136,7 @@ export function ModalReserva({
           nombreCliente: "",
           telefonoCliente: "",
           emailCliente: "",
-          cedulaCliente: "",
+          documentoCliente: "",
           precio: config.precioPorHora.toString(),
           estado: "pendiente",
           notas: "",
@@ -163,7 +163,7 @@ export function ModalReserva({
           nombre: data.nombreCliente,
           telefono: data.telefonoCliente,
           email: data.emailCliente || undefined,
-          cedula: data.cedulaCliente || undefined,
+          documento: data.documentoCliente || undefined,
         },
         precio: parseInt(data.precio),
         estado: data.estado,
@@ -413,7 +413,7 @@ export function ModalReserva({
                       <FormControl>
                         <div className="relative">
                           <Phone className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-                          <Input placeholder="099 123 456" className="pl-10" {...field} />
+                          <Input placeholder="600 123 456" className="pl-10" {...field} />
                         </div>
                       </FormControl>
                       <FormMessage />
@@ -440,12 +440,12 @@ export function ModalReserva({
 
                 <FormField
                   control={form.control}
-                  name="cedulaCliente"
+                  name="documentoCliente"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Cédula (opcional)</FormLabel>
+                      <FormLabel>DNI/NIE (opcional)</FormLabel>
                       <FormControl>
-                        <Input placeholder="1.234.567-8" {...field} />
+                        <Input placeholder="12345678Z" {...field} />
                       </FormControl>
                       <FormMessage />
                     </FormItem>
@@ -461,9 +461,9 @@ export function ModalReserva({
                 name="precio"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>Precio ($ UYU)</FormLabel>
+                    <FormLabel>Precio (€ EUR)</FormLabel>
                     <FormControl>
-                      <Input type="number" placeholder="1500" {...field} />
+                      <Input type="number" placeholder="40" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>

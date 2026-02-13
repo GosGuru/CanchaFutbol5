@@ -13,7 +13,6 @@ import { Button } from "@/components/ui/button"
 import {
   Form,
   FormControl,
-  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -73,7 +72,7 @@ export function FormularioReserva({ reservaInicial, onSuccess }: FormularioReser
       nombreCliente: reservaInicial?.cliente.nombre || "",
       telefonoCliente: reservaInicial?.cliente.telefono || "",
       emailCliente: reservaInicial?.cliente.email || "",
-      precio: reservaInicial?.precio.toString() || "1000",
+      precio: reservaInicial?.precio.toString() || "40",
       notas: reservaInicial?.notas || "",
     },
   })
@@ -124,7 +123,7 @@ export function FormularioReserva({ reservaInicial, onSuccess }: FormularioReser
           result.errores.forEach((error: string) => toast.error(error))
         }
       }
-    } catch (error) {
+    } catch {
       toast.error("Error de conexión")
     } finally {
       setIsLoading(false)
@@ -277,7 +276,7 @@ export function FormularioReserva({ reservaInicial, onSuccess }: FormularioReser
               <FormItem>
                 <FormLabel>Teléfono</FormLabel>
                 <FormControl>
-                  <Input placeholder="+598 99 123 456" {...field} />
+                  <Input placeholder="+34 600 123 456" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

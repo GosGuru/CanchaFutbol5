@@ -2,7 +2,6 @@ import { NextRequest, NextResponse } from 'next/server'
 import { getReservas, createReserva } from '@/lib/storage'
 import { validarReserva } from '@/lib/validations'
 import { getConfiguracion } from '@/lib/storage'
-import type { Reserva, FiltrosReservas } from '@/types'
 
 // GET /api/reservas - Listar todas las reservas con filtros opcionales
 export async function GET(request: NextRequest) {
@@ -53,7 +52,7 @@ export async function GET(request: NextRequest) {
       data: reservas,
       total: reservas.length
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'Error al obtener reservas' },
       { status: 500 }

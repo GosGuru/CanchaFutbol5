@@ -1,11 +1,11 @@
 import { NextResponse } from "next/server"
 
 // Simulador de pasarela de pago para desarrollo
-// En producción, esto se conectaría con MercadoPago u otro proveedor
+// En producción, esto se conectaría con Stripe/Redsys/Bizum u otro proveedor
 
 interface PagoRequest {
   monto: number
-  metodoPago: "mercadopago" | "transferencia" | "efectivo"
+  metodoPago: "tarjeta" | "bizum" | "transferencia" | "efectivo"
   tarjeta?: {
     numero: string
     nombre: string
@@ -55,7 +55,7 @@ export async function POST(request: Request) {
     let response: PagoResponse
 
     switch (body.metodoPago) {
-      case "mercadopago":
+      case "tarjeta":
         // Simular validación de tarjeta
         if (!body.tarjeta) {
           return NextResponse.json(
@@ -91,8 +91,17 @@ export async function POST(request: Request) {
         // Pago exitoso
         response = {
           success: true,
-          referencia: `MP-${Date.now().toString(36).toUpperCase()}`,
-          mensaje: "Pago aprobado por MercadoPago",
+          referencia: `TJ-${Date.now().toString(36).toUpperCase()}`,
+          mensaje: "Pago con tarjeta aprobado",
+          estado: "aprobado"
+        }
+        break
+
+      case "bizum":
+        response = {
+          success: true,
+          referencia: `BZ-${Date.now().toString(36).toUpperCase()}`,
+          mensaje: "Pago Bizum registrado",
           estado: "aprobado"
         }
         break
@@ -161,7 +170,7 @@ export async function GET(request: Request) {
   
   let estado: "aprobado" | "pendiente" | "rechazado" = "pendiente"
   
-  if (tipo === "MP") {
+  if (tipo === "TJ" || tipo === "BZ") {
     estado = "aprobado"
   } else if (tipo === "TF" || tipo === "EF") {
     estado = "pendiente"

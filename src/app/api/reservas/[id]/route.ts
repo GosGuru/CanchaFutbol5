@@ -1,5 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
-import { getReserva, updateReserva, deleteReserva } from '@/lib/storage'
+import { getReserva, updateReserva } from '@/lib/storage'
 import { validarReserva } from '@/lib/validations'
 
 type RouteParams = {
@@ -26,7 +26,7 @@ export async function GET(
       success: true,
       data: reserva
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'Error al obtener reserva' },
       { status: 500 }
@@ -79,7 +79,7 @@ export async function PUT(
       success: true,
       data: reservaActualizada
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'Error al actualizar reserva' },
       { status: 500 }
@@ -110,7 +110,7 @@ export async function DELETE(
       message: 'Reserva cancelada exitosamente',
       data: reservaActualizada
     })
-  } catch (error) {
+  } catch {
     return NextResponse.json(
       { success: false, error: 'Error al cancelar reserva' },
       { status: 500 }

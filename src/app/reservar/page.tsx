@@ -10,7 +10,7 @@ import { GridHorarios } from "@/components/reservas/grid-horarios"
 import { FormularioCliente } from "@/components/reservas/formulario-cliente"
 import { ResumenReserva } from "@/components/reservas/resumen-reserva"
 import { getConfiguracion } from "@/lib/storage"
-import { cn } from "@/lib/utils"
+import { cn, formatCurrency } from "@/lib/utils"
 import type { Cliente } from "@/types"
 
 type Paso = 1 | 2 | 3 | 4
@@ -25,7 +25,7 @@ interface DatosReserva {
 }
 
 const pasos = [
-  { numero: 1, titulo: "Fecha", descripcion: "¿Cuándo jugás?", icon: Calendar },
+  { numero: 1, titulo: "Fecha", descripcion: "¿Cuándo juegas?", icon: Calendar },
   { numero: 2, titulo: "Horario", descripcion: "¿A qué hora?", icon: Clock },
   { numero: 3, titulo: "Datos", descripcion: "Tu info", icon: User },
   { numero: 4, titulo: "Pagar", descripcion: "¡Listo!", icon: Check },
@@ -88,10 +88,10 @@ export default function ReservarPage() {
       >
         <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/10 text-primary text-sm font-medium mb-4">
           <Trophy className="h-4 w-4" />
-          <span>Reservá fácil y rápido en 2 minutos</span>
+          <span>Reserva fácil y rápido en 2 minutos</span>
         </div>
-        <h1 className="text-3xl font-bold mb-2">Reservá tu cancha</h1>
-        <p className="text-muted-foreground">Seguí estos simples pasos para confirmar tu turno</p>
+        <h1 className="text-3xl font-bold mb-2">Reserva tu cancha</h1>
+        <p className="text-muted-foreground">Sigue estos simples pasos para confirmar tu turno</p>
       </motion.div>
 
       {/* Progress Steps - Mejorado y responsivo */}
@@ -266,9 +266,9 @@ export default function ReservarPage() {
                 <div className="w-16 h-16 mx-auto mb-4 rounded-2xl bg-primary/10 flex items-center justify-center">
                   <Calendar className="h-8 w-8 text-primary" />
                 </div>
-                <CardTitle className="text-2xl">¿Cuándo querés jugar?</CardTitle>
+                <CardTitle className="text-2xl">¿Cuándo quieres jugar?</CardTitle>
                 <CardDescription>
-                  Seleccioná la fecha ideal para tu próximo partido
+                  Selecciona la fecha ideal para tu próximo partido
                 </CardDescription>
               </CardHeader>
               <CardContent className="pt-0">
@@ -292,7 +292,7 @@ export default function ReservarPage() {
                     <div>
                       <CardTitle className="text-xl">Elegí cancha y horario</CardTitle>
                       <CardDescription>
-                        {datos.fecha.toLocaleDateString("es-UY", {
+                        {datos.fecha.toLocaleDateString("es-ES", {
                           weekday: "long",
                           day: "numeric",
                           month: "long",
@@ -328,7 +328,7 @@ export default function ReservarPage() {
                     <div>
                       <CardTitle className="text-xl">¿Quién va a jugar?</CardTitle>
                       <CardDescription>
-                        Completá tus datos para contactarte
+                        Completa tus datos para contactarte
                       </CardDescription>
                     </div>
                   </div>
@@ -344,7 +344,7 @@ export default function ReservarPage() {
                   <div className="flex items-center gap-2">
                     <Calendar className="h-4 w-4 text-primary" />
                     <span>
-                      {datos.fecha?.toLocaleDateString("es-UY", {
+                      {datos.fecha?.toLocaleDateString("es-ES", {
                         weekday: "short",
                         day: "numeric",
                         month: "short",
@@ -356,7 +356,7 @@ export default function ReservarPage() {
                     <span>{datos.horaInicio} - Cancha {datos.canchaId}</span>
                   </div>
                   <div className="flex items-center gap-2 ml-auto font-semibold text-primary">
-                    ${datos.precio.toLocaleString("es-UY")}
+                    {formatCurrency(datos.precio)}
                   </div>
                 </div>
 

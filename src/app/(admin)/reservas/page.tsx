@@ -65,7 +65,7 @@ export default function ReservasPage() {
       } else {
         toast.error("Error al cargar reservas")
       }
-    } catch (error) {
+    } catch {
       toast.error("Error de conexión")
     } finally {
       setIsLoading(false)

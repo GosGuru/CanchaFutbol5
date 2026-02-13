@@ -20,7 +20,7 @@ import { useState } from "react"
 import { useRouter } from "next/navigation"
 import { clearSession } from "@/lib/storage"
 
-interface SidebarProps extends React.HTMLAttributes<HTMLDivElement> {}
+type SidebarProps = React.HTMLAttributes<HTMLDivElement>
 
 export function Sidebar({ className }: SidebarProps) {
   const pathname = usePathname()

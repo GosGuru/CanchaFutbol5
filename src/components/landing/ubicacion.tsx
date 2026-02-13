@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useMemo } from "react"
 import { motion } from "motion/react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Button } from "@/components/ui/button"
@@ -20,29 +20,19 @@ interface InfoUbicacion {
 }
 
 export function Ubicacion() {
-  const [info, setInfo] = useState<InfoUbicacion>({
-    nombre: "Cancha de Fútbol 5",
-    direccion: "Durazno, Uruguay",
-    telefono: "+598 99 999 999",
-    horarioApertura: "08:00",
-    horarioCierre: "23:00",
-    googleMapsUrl: "https://maps.google.com/?q=Cancha+Futbol+5+Durazno+Uruguay",
-    googleMapsEmbed: "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52686.91071668166!2d-56.55183542089844!3d-33.38055410000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a5e3a76ee38b81%3A0x8fa1a55b2dc06cc4!2sDurazno%2C%20Departamento%20de%20Durazno%2C%20Uruguay!5e0!3m2!1ses!2sus!4v1702150000000!5m2!1ses!2sus"
-  })
-
-  useEffect(() => {
+  const info = useMemo<InfoUbicacion>(() => {
     const config = getConfiguracion()
     const infoComplejo = getInfoComplejo()
-    
-    setInfo({
+
+    return {
       nombre: infoComplejo.nombre,
       direccion: infoComplejo.direccion,
       telefono: infoComplejo.telefono,
       horarioApertura: infoComplejo.horarioApertura,
       horarioCierre: infoComplejo.horarioCierre,
       googleMapsUrl: config.infoComplejo.googleMapsUrl || "https://maps.google.com",
-      googleMapsEmbed: config.infoComplejo.googleMapsEmbed || "https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d52686.91071668166!2d-56.55183542089844!3d-33.38055410000001!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x95a5e3a76ee38b81%3A0x8fa1a55b2dc06cc4!2sDurazno%2C%20Departamento%20de%20Durazno%2C%20Uruguay!5e0!3m2!1ses!2sus!4v1702150000000!5m2!1ses!2sus"
-    })
+      googleMapsEmbed: config.infoComplejo.googleMapsEmbed || "https://www.google.com/maps?q=Madrid,+Espa%C3%B1a&output=embed"
+    }
   }, [])
 
   return (
@@ -63,7 +53,7 @@ export function Ubicacion() {
             </span>
           </h2>
           <p className="text-muted-foreground max-w-2xl mx-auto">
-            Encontranos fácilmente. Estamos ubicados en una zona accesible con estacionamiento disponible.
+            Encuéntranos fácilmente. Estamos ubicados en una zona accesible con aparcamiento disponible.
           </p>
         </motion.div>
 

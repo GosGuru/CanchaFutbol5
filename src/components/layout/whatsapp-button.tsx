@@ -21,8 +21,8 @@ interface WhatsAppButtonProps {
 }
 
 export function WhatsAppButton({ 
-  phoneNumber = "598999999999", 
-  message = "Hola! Quiero hacer una reserva en Cancha de Fútbol 5" 
+  phoneNumber = "34600111222", 
+  message = "Hola! Quiero hacer una reserva en Invasor Fútbol 5" 
 }: WhatsAppButtonProps) {
   const encodedMessage = encodeURIComponent(message)
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodedMessage}`

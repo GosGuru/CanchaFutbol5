@@ -6,7 +6,6 @@ import { format, parse, startOfWeek, getDay } from "date-fns"
 import { es } from "date-fns/locale"
 import "react-big-calendar/lib/css/react-big-calendar.css"
 import { Reserva } from "@/types"
-import { cn } from "@/lib/utils"
 
 const locales = {
   'es': es,
@@ -26,6 +25,16 @@ interface CalendarioReservasProps {
   onSelectSlot?: (slotInfo: { start: Date; end: Date }) => void
 }
 
+interface CalendarioEvento {
+  id: string
+  title: string
+  start: Date
+  end: Date
+  resource: Reserva
+  canchaId: number
+  estado: Reserva["estado"]
+}
+
 export function CalendarioReservas({
   reservas,
   onSelectReserva,
@@ -35,7 +44,7 @@ export function CalendarioReservas({
   const [date, setDate] = useState(new Date())
 
   // Transformar reservas al formato de react-big-calendar
-  const events = reservas.map(reserva => {
+  const events: CalendarioEvento[] = reservas.map(reserva => {
     const start = new Date(`${reserva.fecha}T${reserva.horaInicio}`)
     const end = new Date(`${reserva.fecha}T${reserva.horaFin}`)
     
@@ -50,7 +59,7 @@ export function CalendarioReservas({
     }
   })
 
-  const eventStyleGetter = (event: any) => {
+  const eventStyleGetter = (event: CalendarioEvento) => {
     let backgroundColor = '#3b82f6' // blue-500 default
     
     if (event.canchaId === 1) {

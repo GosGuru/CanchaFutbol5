@@ -1,7 +1,6 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getReservas, getConfiguracion } from '@/lib/storage'
 import { getHorasDisponibles } from '@/lib/utils'
-import { validarHorarioDisponible } from '@/lib/validations'
 
 // Función para generar ocupación ficticia basada en fecha y cancha
 function generarOcupacionFicticia(fecha: string, canchaId: number, hora: string): boolean {

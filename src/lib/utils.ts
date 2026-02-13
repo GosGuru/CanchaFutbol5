@@ -5,13 +5,20 @@ export function cn(...inputs: ClassValue[]) {
   return twMerge(clsx(inputs))
 }
 
+const DEFAULT_LOCALE = "es-ES"
+const DEFAULT_CURRENCY = "EUR"
+
 export function formatCurrency(amount: number): string {
-  return `$${amount.toLocaleString('es-UY')} UYU`
+  return new Intl.NumberFormat(DEFAULT_LOCALE, {
+    style: "currency",
+    currency: DEFAULT_CURRENCY,
+    maximumFractionDigits: 2,
+  }).format(amount)
 }
 
 export function formatDate(date: Date | string): string {
   const d = typeof date === 'string' ? new Date(date) : date
-  return d.toLocaleDateString('es-UY', {
+  return d.toLocaleDateString(DEFAULT_LOCALE, {
     year: 'numeric',
     month: 'long',
     day: 'numeric'
@@ -24,7 +31,7 @@ export function formatTime(time: string): string {
 
 export function formatDateTime(date: Date | string): string {
   const d = typeof date === 'string' ? new Date(date) : date
-  return d.toLocaleString('es-UY', {
+  return d.toLocaleString(DEFAULT_LOCALE, {
     year: 'numeric',
     month: 'short',
     day: 'numeric',

@@ -15,14 +15,14 @@ export const viewport: Viewport = {
 
 export const metadata: Metadata = {
   title: {
-    default: "Cancha de Fútbol 5 | Reservá tu cancha en Uruguay",
-    template: "%s | Cancha de Fútbol 5",
+    default: "Invasor Fútbol 5 | Reserva tu cancha en España",
+    template: "%s | Invasor Fútbol 5",
   },
-  description: "Reservá tu cancha de fútbol 5. Canchas de césped sintético de primera calidad en Uruguay. Reservas online fácil y rápido. ¡Jugá con tus amigos!",
-  keywords: ["fútbol 5", "cancha", "reservas", "Uruguay", "fútbol sala", "alquiler cancha", "futbol 5 uruguay", "cancha sintetica"],
-  authors: [{ name: "Cancha de Fútbol 5" }],
-  creator: "Cancha de Fútbol 5",
-  publisher: "Cancha de Fútbol 5",
+  description: "Reserva tu cancha de fútbol 5. Canchas de césped sintético de primera calidad en España. Reservas online fácil y rápido. ¡Juega con tus amigos!",
+  keywords: ["fútbol 5", "cancha", "reservas", "España", "fútbol sala", "alquiler cancha", "futbol 5 españa", "cancha sintetica"],
+  authors: [{ name: "Invasor Fútbol 5" }],
+  creator: "Invasor Fútbol 5",
+  publisher: "Invasor Fútbol 5",
   robots: {
     index: true,
     follow: true,
@@ -35,11 +35,11 @@ export const metadata: Metadata = {
     },
   },
   openGraph: {
-    title: "Cancha de Fútbol 5 | Reservá tu cancha",
-    description: "Reservá tu cancha de fútbol 5. Canchas de césped sintético de primera calidad en Uruguay.",
+    title: "Invasor Fútbol 5 | Reserva tu cancha",
+    description: "Reserva tu cancha de fútbol 5. Canchas de césped sintético de primera calidad en España.",
     url: "https://canchafutbol5.com",
-    siteName: "Cancha de Fútbol 5",
-    locale: "es_UY",
+    siteName: "Invasor Fútbol 5",
+    locale: "es_ES",
     type: "website",
     images: [
       {
@@ -52,8 +52,8 @@ export const metadata: Metadata = {
   },
   twitter: {
     card: "summary_large_image",
-    title: "Cancha de Fútbol 5 | Reservá tu cancha",
-    description: "Reservá tu cancha de fútbol 5. Canchas de césped sintético de primera calidad en Uruguay.",
+    title: "Invasor Fútbol 5 | Reserva tu cancha",
+    description: "Reserva tu cancha de fútbol 5. Canchas de césped sintético de primera calidad en España.",
     images: ["https://images.unsplash.com/photo-1575361204480-aadea25e6e68?q=80&w=1200&auto=format&fit=crop"],
   },
   manifest: "/manifest.json",
@@ -70,7 +70,7 @@ export const metadata: Metadata = {
   appleWebApp: {
     capable: true,
     statusBarStyle: "black-translucent",
-    title: "Fútbol 5",
+    title: "Invasor Fútbol 5",
   },
   formatDetection: {
     telephone: true,

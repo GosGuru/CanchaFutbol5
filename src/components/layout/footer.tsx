@@ -14,10 +14,10 @@ export function Footer() {
           <div className="space-y-4">
             <Link href="/" className="flex items-center gap-2">
               <Circle className="h-6 w-6 text-primary fill-primary" />
-              <span className="text-xl font-bold">Cancha de Fútbol 5</span>
+              <span className="text-xl font-bold">Invasor Fútbol 5</span>
             </Link>
             <p className="text-sm text-muted-foreground">
-              Las mejores canchas de fútbol 5 en Uruguay. Césped sintético de primera calidad 
+              Las mejores canchas de fútbol 5 en España. Césped sintético de primera calidad 
               para que disfrutes del mejor fútbol con tus amigos.
             </p>
           </div>
@@ -73,15 +73,15 @@ export function Footer() {
                 @canchafutbol5
               </a>
               <a 
-                href="tel:+59899999999"
+                href="tel:+34600111222"
                 className="flex items-center gap-2 text-sm text-muted-foreground hover:text-primary transition-colors"
               >
                 <Phone className="h-4 w-4" />
-                +598 99 999 999
+                +34 600 111 222
               </a>
               <div className="flex items-center gap-2 text-sm text-muted-foreground">
                 <MapPin className="h-4 w-4" />
-                Uruguay
+                España
               </div>
             </div>
           </div>

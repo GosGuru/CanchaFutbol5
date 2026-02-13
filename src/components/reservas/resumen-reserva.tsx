@@ -97,7 +97,7 @@ export function ResumenReserva({
       toast.success("¡Reserva creada exitosamente!")
     } catch (error) {
       console.error("Error al crear reserva:", error)
-      toast.error("Error al crear la reserva. Intentá de nuevo.")
+      toast.error("Error al crear la reserva. Inténtalo de nuevo.")
     }
   }
 
@@ -264,7 +264,7 @@ export function ResumenReserva({
                 Método de pago
               </CardTitle>
               <p className="text-sm text-muted-foreground mt-1">
-                Total a pagar: <span className="font-bold text-primary">${precio.toLocaleString("es-UY")}</span>
+                Total a pagar: <span className="font-bold text-primary">{formatCurrency(precio)}</span>
               </p>
             </div>
             <Button variant="ghost" size="sm" onClick={() => setMostrarPago(false)}>
@@ -401,7 +401,7 @@ export function ResumenReserva({
             <div>
               <p className="text-sm text-muted-foreground">Total a pagar</p>
               <p className="text-4xl font-bold text-primary">
-                ${precio.toLocaleString("es-UY")}
+                {formatCurrency(precio)}
               </p>
               <p className="text-xs text-muted-foreground mt-1">1 hora de cancha</p>
             </div>

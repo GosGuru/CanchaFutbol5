@@ -24,7 +24,7 @@ const clienteSchema = z.object({
     .min(8, "El teléfono debe tener al menos 8 dígitos")
     .regex(/^[0-9+\s-]+$/, "Formato de teléfono inválido"),
   email: z.string().email("Email inválido").optional().or(z.literal("")),
-  cedula: z.string().optional(),
+  documento: z.string().optional(),
   notas: z.string().optional(),
 })
 
@@ -42,7 +42,7 @@ export function FormularioCliente({ onSubmit, datosIniciales }: FormularioClient
       nombre: datosIniciales?.nombre || "",
       telefono: datosIniciales?.telefono || "",
       email: datosIniciales?.email || "",
-      cedula: datosIniciales?.cedula || "",
+      documento: datosIniciales?.documento || datosIniciales?.cedula || "",
       notas: "",
     },
   })
@@ -52,7 +52,7 @@ export function FormularioCliente({ onSubmit, datosIniciales }: FormularioClient
       nombre: data.nombre,
       telefono: data.telefono,
       email: data.email || undefined,
-      cedula: data.cedula || undefined,
+      documento: data.documento || undefined,
     }
     onSubmit(cliente)
   }
@@ -118,18 +118,18 @@ export function FormularioCliente({ onSubmit, datosIniciales }: FormularioClient
             )}
           />
 
-          {/* Cédula */}
+          {/* Documento */}
           <FormField
             control={form.control}
-            name="cedula"
+            name="documento"
             render={({ field }) => (
               <FormItem>
                 <FormLabel className="flex items-center gap-2">
                   <CreditCard className="h-4 w-4" />
-                  Cédula (opcional)
+                  DNI/NIE (opcional)
                 </FormLabel>
                 <FormControl>
-                  <Input placeholder="1.234.567-8" {...field} />
+                  <Input placeholder="12345678Z" {...field} />
                 </FormControl>
                 <FormMessage />
               </FormItem>

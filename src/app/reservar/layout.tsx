@@ -24,13 +24,13 @@ export default function ReservarLayout({
             
             <Link href="/" className="flex items-center gap-2 font-bold">
               <Circle className="h-6 w-6 text-primary fill-primary" />
-              <span className="hidden sm:inline text-lg">Cancha de Fútbol 5</span>
+              <span className="hidden sm:inline text-lg">Invasor Fútbol 5</span>
             </Link>
             
             {/* WhatsApp de ayuda */}
             <Button variant="ghost" size="sm" asChild className="text-[#25D366]">
               <a 
-                href="https://wa.me/598999999999?text=Hola,%20necesito%20ayuda%20con%20una%20reserva"
+                href="https://wa.me/34600111222?text=Hola,%20necesito%20ayuda%20con%20una%20reserva"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="flex items-center gap-2"
@@ -51,7 +51,7 @@ export default function ReservarLayout({
       {/* Footer minimalista */}
       <footer className="py-6 border-t border-border/50">
         <div className="container mx-auto px-4 text-center text-sm text-muted-foreground">
-          <p>© {new Date().getFullYear()} Cancha de Fútbol 5 · Uruguay</p>
+          <p>© {new Date().getFullYear()} Invasor Fútbol 5 · España</p>
           <p className="mt-1 text-xs">Pago 100% seguro 🔒</p>
         </div>
       </footer>

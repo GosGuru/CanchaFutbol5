@@ -12,7 +12,19 @@ export interface Cliente {
   nombre: string
   telefono: string
   email?: string
+  documento?: string
   cedula?: string
+}
+
+export type MetodoPagoConfig = "tarjeta" | "bizum" | "transferencia" | "efectivo"
+
+export interface ConfiguracionRegional {
+  pais: string
+  locale: string
+  moneda: string
+  simboloMoneda: string
+  zonaHoraria: string
+  metodosPago: MetodoPagoConfig[]
 }
 
 // Reserva
@@ -76,6 +88,7 @@ export interface Configuracion {
   duracionSlot: number // 60 minutos
   diasBloqueados: string[] // ISO date strings
   infoComplejo: InfoComplejo
+  regional?: ConfiguracionRegional
 }
 
 // Usuario administrador

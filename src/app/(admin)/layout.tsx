@@ -1,6 +1,6 @@
 "use client"
 
-import { useEffect, useState } from "react"
+import { useEffect, useMemo } from "react"
 import { useRouter } from "next/navigation"
 import { Sidebar } from "@/components/layout/sidebar"
 import { getSession } from "@/lib/storage"
@@ -11,19 +11,15 @@ export default function AdminLayout({
   children: React.ReactNode
 }) {
   const router = useRouter()
-  const [isLoading, setIsLoading] = useState(true)
+  const session = useMemo(() => getSession(), [])
 
   useEffect(() => {
-    // Verificar sesión
-    const session = getSession()
     if (!session) {
       router.push("/login")
-    } else {
-      setIsLoading(false)
     }
-  }, [router])
+  }, [router, session])
 
-  if (isLoading) {
+  if (!session) {
     return (
       <div className="flex h-screen items-center justify-center">
         <div className="h-8 w-8 animate-spin rounded-full border-4 border-primary border-t-transparent"></div>

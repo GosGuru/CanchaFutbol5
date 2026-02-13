@@ -1,12 +1,13 @@
 import { Reserva, Configuracion } from '@/types'
 import { getReservas, getConfiguracion } from './storage'
 
-// Validar teléfono uruguayo
-export function validarTelefonoUruguayo(telefono: string): boolean {
-  // Formato: +598 XX XXX XXX o variaciones
-  const regex = /^(\+?598)?[\s\-]?([0-9]{2})[\s\-]?([0-9]{3})[\s\-]?([0-9]{3,4})$/
+// Validar teléfono de España
+export function validarTelefonoEspana(telefono: string): boolean {
+  const regex = /^(\+?34)?[\s\-]?[67][0-9]{2}[\s\-]?[0-9]{3}[\s\-]?[0-9]{3}$/
   return regex.test(telefono.trim())
 }
+
+export const validarTelefonoUruguayo = validarTelefonoEspana
 
 // Validar que la fecha sea futura
 export function validarFechaFutura(fecha: string): boolean {
@@ -139,8 +140,8 @@ export function validarReserva(
   }
   
   // Validar teléfono
-  if (data.cliente?.telefono && !validarTelefonoUruguayo(data.cliente.telefono)) {
-    errores.push('El teléfono debe ser un número uruguayo válido (+598 XX XXX XXX)')
+  if (data.cliente?.telefono && !validarTelefonoEspana(data.cliente.telefono)) {
+    errores.push('El teléfono debe ser un número válido de España (+34 6XX XXX XXX)')
   }
   
   // Validar fecha futura

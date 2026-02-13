@@ -85,9 +85,9 @@ export default function ConfiguracionPage() {
       horarioApertura: "08:00",
       horarioCierre: "23:00",
       duracionSlot: 60,
-      precioPorHora: 1500,
-      precioNocturno: 1800,
-      precioFinDeSemana: 1800,
+      precioPorHora: 40,
+      precioNocturno: 48,
+      precioFinDeSemana: 50,
       nombreComplejo: "",
       direccion: "",
       telefono: "",
@@ -110,7 +110,7 @@ export default function ConfiguracionPage() {
       precioPorHora: currentConfig.precioPorHora,
       precioNocturno: currentConfig.precios?.turnoNocturno || currentConfig.precioPorHora,
       precioFinDeSemana: currentConfig.precios?.turnoFinDeSemana || currentConfig.precioPorHora,
-      nombreComplejo: currentConfig.infoComplejo?.nombre || "Cancha de Fútbol 5",
+      nombreComplejo: currentConfig.infoComplejo?.nombre || "Invasor Fútbol 5",
       direccion: currentConfig.infoComplejo?.direccion || "",
       telefono: currentConfig.infoComplejo?.telefono || "",
       whatsapp: currentConfig.infoComplejo?.whatsapp || "",
@@ -168,7 +168,7 @@ export default function ConfiguracionPage() {
       
       updateConfiguracion(newConfig)
       toast.success("Configuración actualizada exitosamente")
-    } catch (error) {
+    } catch {
       toast.error("Error al guardar configuración")
     } finally {
       setIsLoading(false)
@@ -264,10 +264,10 @@ export default function ConfiguracionPage() {
                     <FormItem>
                       <FormLabel>WhatsApp (número completo)</FormLabel>
                       <FormControl>
-                        <Input placeholder="59899123456" {...field} />
+                        <Input placeholder="34600111222" {...field} />
                       </FormControl>
                       <FormDescription>
-                        Sin + ni espacios. Ej: 59899123456
+                        Sin + ni espacios. Ej: 34600111222
                       </FormDescription>
                       <FormMessage />
                     </FormItem>
@@ -416,7 +416,7 @@ export default function ConfiguracionPage() {
                   name="precioPorHora"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Turno Normal ($ UYU)</FormLabel>
+                      <FormLabel>Turno Normal (€ EUR)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -438,7 +438,7 @@ export default function ConfiguracionPage() {
                   name="precioNocturno"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Turno Nocturno ($ UYU)</FormLabel>
+                      <FormLabel>Turno Nocturno (€ EUR)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
@@ -460,7 +460,7 @@ export default function ConfiguracionPage() {
                   name="precioFinDeSemana"
                   render={({ field }) => (
                     <FormItem>
-                      <FormLabel>Fin de Semana ($ UYU)</FormLabel>
+                      <FormLabel>Fin de Semana (€ EUR)</FormLabel>
                       <FormControl>
                         <Input 
                           type="number" 
